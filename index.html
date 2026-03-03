@@ -66,14 +66,21 @@
         .country-hero { width: 100%; height: 350px; object-fit: cover; border-radius: 15px; margin: 20px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
         .share-container { margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
-        .share-btn { display: inline-block; padding: 12px 24px; margin: 5px; border-radius: 8px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: transform 0.2s; cursor: pointer; border: none; }
+        .share-btn { display: inline-block; padding: 10px 20px; margin: 5px; border-radius: 8px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: transform 0.2s; cursor: pointer; border: none; }
         .share-btn:hover { transform: translateY(-2px); }
         .btn-x { background: #000; }
         .btn-fb { background: #1877F2; }
         .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .btn-download { background: var(--accent); color: var(--primary); display: block; margin: 15px auto 0; width: fit-content; }
 
-        .lead-qualify-box { background: #f0f4f8; padding: 20px; border-radius: 12px; margin-top: 25px; border: 2px solid var(--primary); }
+        .lead-qualify-box {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 2px solid var(--primary);
+        }
+
         .spinner { width: 60px; height: 60px; border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 30px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
@@ -85,6 +92,7 @@
         <p class="brand-header">ED PRO CONSULTANTS</p>
         <h1>The Global Destiny Hat</h1>
         <p>Your journey is more than a destination—it’s a legacy. Find your perfect global campus in under 60 seconds.</p>
+        
         <form id="startForm" class="center-form" onsubmit="startQuiz(event)">
             <input type="email" id="start_email" name="email" autocomplete="email" placeholder="Enter your email to begin..." required style="margin-top: 20px;">
             <button type="submit" class="btn-elegant">Begin the Sorting</button>
@@ -101,9 +109,11 @@
     <div id="screen-lead" class="screen">
         <h1 style="text-align: center;">Analysis Complete</h1>
         <p style="text-align: center; margin-bottom: 30px;">The Hat has calculated your fit. Enter your name and number to reveal the verdict.</p>
+        
         <form id="leadForm" onsubmit="submitData(event)">
             <label for="full_name">Student Name</label>
             <input type="text" id="full_name" name="name" autocomplete="name" placeholder="Full Name" required>
+            
             <label for="phone_number">WhatsApp / Mobile</label>
             <div class="phone-group">
                 <select id="country-code" name="country_code" style="width: 35%;">
@@ -114,8 +124,9 @@
                     <option value="+91">🇮🇳 +91</option>
                     <option value="">Other</option>
                 </select>
-                <input type="tel" id="phone_number" name="tel" autocomplete="tel" placeholder="50 123 4567" style="width: 65%;" minlength="7" maxlength="15" pattern="[0-9\s]+" required>
+                <input type="tel" id="phone_number" name="tel" autocomplete="tel" placeholder="50 123 4567" style="width: 65%;" minlength="7" maxlength="15" pattern="[0-9\s]+" title="Please enter a valid phone number (7 to 15 digits)" required>
             </div>
+            
             <button type="submit" class="btn-elegant" id="submit-btn">See My Destiny</button>
         </form>
     </div>
@@ -136,7 +147,9 @@
         </div>
 
         <div id="more-info-section" class="lead-qualify-box">
-            <p style="font-weight: bold; color: var(--primary); margin-bottom: 15px; font-size: 16px;">Are you interested in studying in <span id="info-country-name" style="color: var(--accent);">...</span>?</p>
+            <p style="font-weight: bold; color: var(--primary); margin-bottom: 15px; font-size: 16px;">
+                Are you interested in studying in <span id="info-country-name" style="color: var(--accent);">...</span>?
+            </p>
             <button class="share-btn" style="background: var(--primary); width: 45%; margin: 5px;" onclick="logInterest('Yes')">Yes</button>
             <button class="share-btn" style="background: #ccc; color: #333; width: 45%; margin: 5px;" onclick="logInterest('No')">No</button>
         </div>
@@ -150,6 +163,7 @@
             <br>
             <button class="share-btn btn-download" onclick="forceDownload()">⬇ Save to Photos</button>
         </div>
+
         <button class="btn-elegant" onclick="location.reload()" style="margin-top: 30px;">Reset the Hat</button>
     </div>
 </div>
@@ -159,23 +173,79 @@
 
     const countryImages = {
         UK: "images/uk.jpg",
-        USA: "images/us.jpg", 
+        USA: "images/us.jpg", // Corrected to match your filename
         AUS: "images/aus.jpg",
         CAN: "images/canada.jpg",
-        GER: "images/germany.jpg",
+        GER: "images/germany.jpg", // Corrected to match your filename
         UAE: "images/dubai.jpg",
         MAL: "images/malaysia.jpg",
         NZ: "images/nz.jpg"
     };
 
     const questions = [
-        { q: "Imagine waking up in your new city. Which view makes you feel most at home?", options: [ { text: "A city skyline with bright lights and energy", pts: { USA:1, UAE:1 } }, { text: "Historic streets with culture and ancient architecture", pts: { UK:1, GER:1 } }, { text: "A view of mountains or a quiet, green forest", pts: { CAN:1, NZ:1 } }, { text: "A sunny coastal breeze and the sight of the beach", pts: { AUS:1, MAL:1 } } ] },
-        { q: "If you had a 'Success Key' for your journey, what would it unlock?", options: [ { text: "A world-renowned university name", pts: { UK:1, USA:1 } }, { text: "A welcoming community and a path to a permanent home", pts: { CAN:1, AUS:1 } }, { text: "High-quality expertise with a focus on affordability", pts: { GER:1, MAL:1 } }, { text: "A fast-paced career in a modern business hub", pts: { UAE:1 } } ] },
-        { q: "It’s your first free Saturday in your new home. Where will we most likely find you?", options: [ { text: "Exploring historic libraries or museums", pts: { UK:1, GER:1 } }, { text: "At a rooftop lounge or networking event in the city", pts: { USA:1, UAE:1 } }, { text: "Heading out for an outdoor adventure like hiking", pts: { AUS:1, CAN:1, NZ:1 } }, { text: "At a local street food market with multicultural vibes", pts: { MAL:1, UAE:1 } } ] },
-        { q: "Think about the person you want to be on graduation day. What's the biggest change?", options: [ { text: "To be a respected scholar with academic prestige", pts: { UK:1 } }, { text: "To be a resident of a safe, stable country", pts: { CAN:1, NZ:1, AUS:1 } }, { text: "To be a technical expert with skills for the future", pts: { GER:1, MAL:1 } }, { text: "To be a leader with a massive global network", pts: { USA:1, UAE:1 } } ] },
-        { q: "Moving abroad is a major milestone. How do you handle a monumental challenge?", options: [ { text: "I research the facts and follow a structured plan", pts: { GER:1, UK:1 } }, { text: "I jump in head-first and look for opportunity", pts: { USA:1, UAE:1 } }, { text: "I stay relaxed and adapt as things change", pts: { AUS:1, MAL:1 } }, { text: "I look for a supportive community to join", pts: { CAN:1, NZ:1 } } ] },
-        { q: "Your studies are the heart of this journey. Which atmosphere helps you thrive?", options: [ { text: "A traditional setting where history is respected", pts: { UK:1 } }, { text: "A high-energy hub of innovation and competition", pts: { USA:1, UAE:1 } }, { text: "A technical, focused, and deeply precise setting", pts: { GER:1 } }, { text: "A diverse, global, and flexible environment", pts: { MAL:1, CAN:1, AUS:1 } } ] },
-        { q: "At the end of your journey, what is the 'Grand Prize' you want?", options: [ { text: "An elite degree recognized by any employer", pts: { UK:1, USA:1 } }, { text: "A resident visa and a secure future", pts: { CAN:1, AUS:1, NZ:1 } }, { text: "High-level expertise without heavy student debt", pts: { GER:1, MAL:1 } }, { text: "A career start in a tax-free, high-growth city", pts: { UAE:1 } } ] }
+        {
+            q: "Imagine waking up in your new city. Which view makes you feel most at home?",
+            options: [
+                { text: "A city skyline with bright lights and energy", pts: { USA:1, UAE:1 } },
+                { text: "Historic streets with culture and ancient architecture", pts: { UK:1, GER:1 } },
+                { text: "A view of mountains or a quiet, green forest", pts: { CAN:1, NZ:1 } },
+                { text: "A sunny coastal breeze and the sight of the beach", pts: { AUS:1, MAL:1 } }
+            ]
+        },
+        {
+            q: "If you had a 'Success Key' for your journey, what would it unlock?",
+            options: [
+                { text: "A world-renowned university name", pts: { UK:1, USA:1 } },
+                { text: "A welcoming community and a path to a permanent home", pts: { CAN:1, AUS:1 } },
+                { text: "High-quality expertise with a focus on affordability", pts: { GER:1, MAL:1 } },
+                { text: "A fast-paced career in a modern business hub", pts: { UAE:1 } }
+            ]
+        },
+        {
+            q: "It’s your first free Saturday in your new home. Where will we most likely find you?",
+            options: [
+                { text: "Exploring historic libraries or museums", pts: { UK:1, GER:1 } },
+                { text: "At a rooftop lounge or networking event in the city", pts: { USA:1, UAE:1 } },
+                { text: "Heading out for an outdoor adventure like hiking", pts: { AUS:1, CAN:1, NZ:1 } },
+                { text: "At a local street food market with multicultural vibes", pts: { MAL:1, UAE:1 } }
+            ]
+        },
+        {
+            q: "Think about the person you want to be on graduation day. What's the biggest change?",
+            options: [
+                { text: "To be a respected scholar with academic prestige", pts: { UK:1 } },
+                { text: "To be a resident of a safe, stable country", pts: { CAN:1, NZ:1, AUS:1 } },
+                { text: "To be a technical expert with skills for the future", pts: { GER:1, MAL:1 } },
+                { text: "To be a leader with a massive global network", pts: { USA:1, UAE:1 } }
+            ]
+        },
+        {
+            q: "Moving abroad is a major milestone. How do you handle a monumental challenge?",
+            options: [
+                { text: "I research the facts and follow a structured plan", pts: { GER:1, UK:1 } },
+                { text: "I jump in head-first and look for opportunity", pts: { USA:1, UAE:1 } },
+                { text: "I stay relaxed and adapt as things change", pts: { AUS:1, MAL:1 } },
+                { text: "I look for a supportive community to join", pts: { CAN:1, NZ:1 } }
+            ]
+        },
+        {
+            q: "Your studies are the heart of this journey. Which atmosphere helps you thrive?",
+            options: [
+                { text: "A traditional setting where history is respected", pts: { UK:1 } },
+                { text: "A high-energy hub of innovation and competition", pts: { USA:1, UAE:1 } },
+                { text: "A technical, focused, and deeply precise setting", pts: { GER:1 } },
+                { text: "A diverse, global, and flexible environment", pts: { MAL:1, CAN:1, AUS:1 } }
+            ]
+        },
+        {
+            q: "At the end of your journey, what is the 'Grand Prize' you want?",
+            options: [
+                { text: "An elite degree recognized by any employer", pts: { UK:1, USA:1 } },
+                { text: "A resident visa and a secure future", pts: { CAN:1, AUS:1, NZ:1 } },
+                { text: "High-level expertise without heavy student debt", pts: { GER:1, MAL:1 } },
+                { text: "A career start in a tax-free, high-growth city", pts: { UAE:1 } }
+            ]
+        }
     ];
 
     const results = {
@@ -190,18 +260,30 @@
     };
 
     let scores = { UK:0, USA:0, AUS:0, CAN:0, GER:0, UAE:0, MAL:0, NZ:0 };
-    let currentQ = 0; let finalResultName = ""; let studentEmail = "";
+    let currentQ = 0;
+    let finalResultName = "";
+    let studentEmail = "";
 
     function transitionTo(screenId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        if (screenId === 'q0') { document.getElementById('screen-quiz').classList.add('active'); renderQuestion(); } 
-        else { document.getElementById('screen-' + screenId).classList.add('active'); }
+        if (screenId === 'q0') {
+            document.getElementById('screen-quiz').classList.add('active');
+            renderQuestion();
+        } else {
+            document.getElementById('screen-' + screenId).classList.add('active');
+        }
     }
 
     function startQuiz(event) {
         event.preventDefault();
-        studentEmail = document.getElementById('start_email').value;
-        scores = { UK:0, USA:0, AUS:0, CAN:0, GER:0, UAE:0, MAL:0, NZ:0 }; currentQ = 0;
+        const emailInput = document.getElementById('start_email').value;
+        if (!emailInput || !emailInput.includes('@')) {
+            alert("Please enter a valid email to begin.");
+            return;
+        }
+        studentEmail = emailInput; 
+        scores = { UK:0, USA:0, AUS:0, CAN:0, GER:0, UAE:0, MAL:0, NZ:0 };
+        currentQ = 0;
         transitionTo('q0');
     }
 
@@ -210,27 +292,53 @@
         document.getElementById('question-text').innerText = qData.q;
         document.getElementById('question-count').innerText = `DESTINY ANALYSIS ${currentQ + 1} / 7`;
         document.getElementById('progress-fill').style.width = ((currentQ + 1) / 7 * 100) + '%';
+        
         const list = document.getElementById('options-list');
         list.innerHTML = '';
         qData.options.forEach(opt => {
-            const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = opt.text;
-            btn.onclick = () => { for (let c in opt.pts) scores[c] += opt.pts[c]; currentQ++; if (currentQ < 7) renderQuestion(); else transitionTo('lead'); };
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt.text;
+            btn.onclick = () => {
+                for (let c in opt.pts) scores[c] += opt.pts[c];
+                currentQ++;
+                if (currentQ < 7) renderQuestion();
+                else transitionTo('lead');
+            };
             list.appendChild(btn);
         });
     }
 
     function submitData(event) {
         event.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+
         let winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
         finalResultName = results[winner].n;
+
         const formData = {
             name: document.getElementById('full_name').value,
             countryCode: document.getElementById('country-code').value,
             phoneNumber: document.getElementById('phone_number').value,
-            email: studentEmail, result: finalResultName, interested: "Pending"
+            email: studentEmail, 
+            result: finalResultName,
+            interested: "Pending"
         };
+
         transitionTo('loading');
-        fetch(scriptURL, { method: 'POST', body: JSON.stringify(formData), mode: 'no-cors' }).then(() => showResult(winner)).catch(() => showResult(winner));
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
+        })
+        .then(() => showResult(winner))
+        .catch(error => {
+            console.error('Connection Error:', error);
+            showResult(winner);
+        });
     }
 
     function showResult(winner) {
@@ -243,38 +351,86 @@
 
     function logInterest(answer) {
         const infoSection = document.getElementById('more-info-section');
-        infoSection.innerHTML = answer === 'Yes' ? "<p style='color: #00732f; font-weight: bold;'>✅ Excellent! An EdPro counselor will be in touch.</p>" : "<p style='color: #555; font-weight: bold;'>No problem, feel free to explore your result!</p>";
-        const formData = { name: document.getElementById('full_name').value, email: studentEmail, result: finalResultName, interested: answer };
-        fetch(scriptURL, { method: 'POST', body: JSON.stringify(formData), mode: 'no-cors' });
+        if (answer === 'Yes') {
+            infoSection.innerHTML = "<p style='color: #00732f; font-weight: bold; margin: 0;'>✅ Excellent! An EdPro counselor will be in touch.</p>";
+        } else {
+            infoSection.innerHTML = "<p style='color: #555; font-weight: bold; margin: 0;'>No problem, feel free to explore your result!</p>";
+        }
+        
+        const formData = {
+            name: document.getElementById('full_name').value,
+            countryCode: document.getElementById('country-code').value,
+            phoneNumber: document.getElementById('phone_number').value,
+            email: studentEmail,
+            result: finalResultName,
+            interested: answer
+        };
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
+        });
     }
 
-    // UPDATED SMART SHARE LOGIC FOR MOBILE
     function smartShare() {
+        const btn = document.querySelector('.btn-ig');
+        const originalText = btn.innerText;
+        btn.innerText = "Generating...";
+
         const captureElement = document.getElementById('capture-area');
-        html2canvas(captureElement, { useCORS: true, scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
+        
+        html2canvas(captureElement, { 
+            useCORS: true, 
+            allowTaint: false,
+            scale: 2 
+        }).then(canvas => {
             canvas.toBlob(blob => {
                 const file = new File([blob], "My_Destiny.png", { type: "image/png" });
+                
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    navigator.share({ files: [file], title: 'My Global Destiny', text: `I got ${finalResultName} on the Global Destiny Hat!` }).catch(() => downloadFallback(canvas));
-                } else { downloadFallback(canvas); }
-            }, 'image/png');
+                    navigator.share({
+                        files: [file],
+                        title: 'My Global Destiny',
+                        text: `I just found my future with the EdPro Destiny Hat!`
+                    })
+                    .then(() => { btn.innerText = originalText; })
+                    .catch(err => { 
+                        btn.innerText = originalText;
+                        console.log("Share failed", err); 
+                    });
+                } else {
+                    const link = document.createElement('a');
+                    link.download = 'My_Global_Destiny.png';
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                    btn.innerText = originalText;
+                }
+            });
         });
     }
 
     function forceDownload() {
         const captureElement = document.getElementById('capture-area');
-        html2canvas(captureElement, { useCORS: true, scale: 2 }).then(canvas => downloadFallback(canvas));
+        html2canvas(captureElement, { useCORS: true, scale: 2 }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'My_Global_Destiny.png';
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
     }
 
-    function downloadFallback(canvas) {
-        const link = document.createElement('a');
-        link.download = 'My_Global_Destiny.png';
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+    function shareX() {
+        const text = `I just found my perfect study abroad destiny: ${finalResultName}! Find yours with the EdPro Destiny Hat.`;
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
     }
 
-    function shareX() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('I found my study abroad destiny: ' + finalResultName + '!')}`, '_blank'); }
-    function shareFB() { window.open(`https://www.facebook.com/sharer/sharer.php?u=https://edproconsultants.com`, '_blank'); }
+    function shareFB() {
+        const url = `https://www.facebook.com/sharer/sharer.php?u=https://edproconsultants.com`;
+        window.open(url, '_blank');
+    }
 </script>
+
 </body>
 </html>
