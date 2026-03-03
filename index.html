@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Destiny Hat | ED Pro Consultants</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #002349; 
+            --accent: #D4AF37;  
+            --bg-dark: #001529;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--white);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #app-container {
+            background: var(--white);
+            color: #333;
+            width: 95%;
+            max-width: 700px;
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            text-align: center;
+            position: relative;
+        }
+
+        h1 { font-family: 'Georgia', serif; color: var(--primary); font-size: 34px; margin-bottom: 10px; letter-spacing: -0.5px; }
+        h2 { font-family: 'Georgia', serif; color: var(--primary); font-size: 24px; margin-bottom: 30px; }
+        p { line-height: 1.7; color: #555; font-size: 17px; }
+        .brand-header { color: var(--accent); font-weight: 800; letter-spacing: 5px; font-size: 13px; margin-bottom: 5px; text-transform: uppercase; }
+
+        .screen { display: none; }
+        .active { display: block; animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .progress-bar { height: 4px; background: #eee; border-radius: 10px; margin-bottom: 40px; overflow: hidden; }
+        #progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        .options-container { display: flex; flex-direction: column; gap: 15px; }
+        button.option-btn { background: var(--light-gray); border: 1px solid #e0e0e0; padding: 18px; border-radius: 12px; cursor: pointer; font-size: 16px; font-weight: 500; color: var(--primary); transition: all 0.3s; text-align: left; }
+        button.option-btn:hover { border-color: var(--accent); background: #fff; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.15); transform: translateY(-2px); }
+
+        form { width: 100%; text-align: left; max-width: 500px; margin: 0 auto; }
+        .center-form { text-align: center; }
+        label { font-size: 12px; font-weight: bold; color: var(--primary); margin-left: 5px; margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        input, select { padding: 15px; border: 2px solid #ddd; border-radius: 12px; font-size: 16px; margin-bottom: 20px; transition: border-color 0.3s; background: #f9f9f9; box-sizing: border-box; width: 100%; }
+        input:focus, select:focus { border-color: var(--accent); outline: none; background: #fff; }
+        .phone-group { display: flex; gap: 10px; }
+
+        .btn-elegant { background: var(--primary); color: white; padding: 18px 50px; border: none; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1.5px; width: 100%; }
+        .btn-elegant:hover { transform: scale(1.02); background: #003366; }
+
+        .country-hero { width: 100%; height: 350px; object-fit: cover; border-radius: 15px; margin: 20px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        .share-container { margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
+        .share-btn { display: inline-block; padding: 10px 20px; margin: 5px; border-radius: 8px; color: white; text-decoration: none; font-size: 14px; font-weight: bold; transition: transform 0.2s; cursor: pointer; border: none; }
+        .share-btn:hover { transform: translateY(-2px); }
+        .btn-x { background: #000; }
+        .btn-fb { background: #1877F2; }
+        .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .btn-download { background: var(--accent); color: var(--primary); display: block; margin: 15px auto 0; width: fit-content; }
+
+        .lead-qualify-box {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 2px solid var(--primary);
+        }
+
+        .spinner { width: 60px; height: 60px; border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 30px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <div id="screen-start" class="screen active" style="text-align: center;">
+        <p class="brand-header">ED PRO CONSULTANTS</p>
+        <h1>The Global Destiny Hat</h1>
+        <p>Your journey is more than a destination—it’s a legacy. Find your perfect global campus in under 60 seconds.</p>
+        
+        <form id="startForm" class="center-form" onsubmit="startQuiz(event)">
+            <input type="email" id="start_email" name="email" autocomplete="email" placeholder="Enter your email to begin..." required style="margin-top: 20px;">
+            <button type="submit" class="btn-elegant">Begin the Sorting</button>
+        </form>
+    </div>
+
+    <div id="screen-quiz" class="screen">
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+        <p class="brand-header" id="question-count">DESTINY ANALYSIS 1 / 7</p>
+        <h2 id="question-text">Loading...</h2>
+        <div id="options-list" class="options-container"></div>
+    </div>
+
+    <div id="screen-lead" class="screen">
+        <h1 style="text-align: center;">Analysis Complete</h1>
+        <p style="text-align: center; margin-bottom: 30px;">The Hat has calculated your fit. Enter your name and number to reveal the verdict.</p>
+        
+        <form id="leadForm" onsubmit="submitData(event)">
+            <label for="full_name">Student Name</label>
+            <input type="text" id="full_name" name="name" autocomplete="name" placeholder="Full Name" required>
+            
+            <label for="phone_number">WhatsApp / Mobile</label>
+            <div class="phone-group">
+                <select id="country-code" name="country_code" style="width: 35%;">
+                    <option value="+92">🇵🇰 +92</option>
+                    <option value="+971">🇦🇪 +971</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+974">🇶🇦 +974</option>
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="">Other</option>
+                </select>
+                <input type="tel" id="phone_number" name="tel" autocomplete="tel" placeholder="50 123 4567" style="width: 65%;" minlength="7" maxlength="15" pattern="[0-9\s]+" title="Please enter a valid phone number (7 to 15 digits)" required>
+            </div>
+            
+            <button type="submit" class="btn-elegant" id="submit-btn">See My Destiny</button>
+        </form>
+    </div>
+
+    <div id="screen-loading" class="screen" style="text-align: center;">
+        <div class="spinner"></div>
+        <h2 id="loading-status">Analyzing Traits...</h2>
+        <p>Syncing with EdPro Database...</p>
+    </div>
+
+    <div id="screen-result" class="screen">
+        <div id="capture-area" style="padding: 25px; background: white; border-radius: 20px;">
+            <p style="color: var(--accent); font-weight: 800; letter-spacing: 3px; font-size: 14px; text-transform: uppercase;">The Hat has spoken!</p>
+            <h1 id="country-name" style="margin-top: 5px; font-size: 40px; color: var(--primary);">...</h1>
+            <img id="country-img" class="country-hero" src="" alt="Destiny Country" crossorigin="anonymous">
+            <p id="country-desc" style="font-size: 18px; line-height: 1.6; color: #444;"></p>
+            <p style="margin-top:15px; font-size:12px; color:#999; text-transform:uppercase; letter-spacing:1px;">GlobalDestinyHat.com | EdPro Consultants</p>
+        </div>
+
+        <div id="more-info-section" class="lead-qualify-box">
+            <p style="font-weight: bold; color: var(--primary); margin-bottom: 15px; font-size: 16px;">
+                Are you interested in studying in <span id="info-country-name" style="color: var(--accent);">...</span>?
+            </p>
+            <button class="share-btn" style="background: var(--primary); width: 45%; margin: 5px;" onclick="logInterest('Yes')">Yes</button>
+            <button class="share-btn" style="background: #ccc; color: #333; width: 45%; margin: 5px;" onclick="logInterest('No')">No</button>
+        </div>
+
+        <div class="share-container">
+            <p style="font-size: 14px; color: #888; margin-bottom: 10px;">Share your destiny:</p>
+            <button class="share-btn btn-ig" onclick="smartShare()">Share on Instagram Story</button>
+            <br>
+            <button class="share-btn btn-x" onclick="shareX()">X (Twitter)</button>
+            <button class="share-btn btn-fb" onclick="shareFB()">Facebook</button>
+            <br>
+            <button class="share-btn btn-download" onclick="forceDownload()">⬇ Save to Photos</button>
+        </div>
+
+        <button class="btn-elegant" onclick="location.reload()" style="margin-top: 30px;">Reset the Hat</button>
+    </div>
+</div>
+
+<script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwHBGEGE1oaI6HCYGDUCE365PxsiFnBan9vYgFmmQKawm3xNe4BfvYYGLWVkZLpDpUCmg/exec";
+
+    const countryImages = {
+        UK: "images/uk.jpg",
+        USA: "images/usa.jpg",
+        AUS: "images/aus.jpg",
+        CAN: "images/canada.jpg",
+        GER: "images/germany.jpg",
+        UAE: "images/dubai.jpg",
+        MAL: "images/malaysia.jpg",
+        NZ: "images/nz.jpg"
+    };
+
+    const questions = [
+        {
+            q: "Imagine waking up in your new city. Which view makes you feel most at home?",
+            options: [
+                { text: "A city skyline with bright lights and energy", pts: { USA:1, UAE:1 } },
+                { text: "Historic streets with culture and ancient architecture", pts: { UK:1, GER:1 } },
+                { text: "A view of mountains or a quiet, green forest", pts: { CAN:1, NZ:1 } },
+                { text: "A sunny coastal breeze and the sight of the beach", pts: { AUS:1, MAL:1 } }
+            ]
+        },
+        {
+            q: "If you had a 'Success Key' for your journey, what would it unlock?",
+            options: [
+                { text: "A world-renowned university name", pts: { UK:1, USA:1 } },
+                { text: "A welcoming community and a path to a permanent home", pts: { CAN:1, AUS:1 } },
+                { text: "High-quality expertise with a focus on affordability", pts: { GER:1, MAL:1 } },
+                { text: "A fast-paced career in a modern business hub", pts: { UAE:1 } }
+            ]
+        },
+        {
+            q: "It’s your first free Saturday in your new home. Where will we most likely find you?",
+            options: [
+                { text: "Exploring historic libraries or museums", pts: { UK:1, GER:1 } },
+                { text: "At a rooftop lounge or networking event in the city", pts: { USA:1, UAE:1 } },
+                { text: "Heading out for an outdoor adventure like hiking", pts: { AUS:1, CAN:1, NZ:1 } },
+                { text: "At a local street food market with multicultural vibes", pts: { MAL:1, UAE:1 } }
+            ]
+        },
+        {
+            q: "Think about the person you want to be on graduation day. What's the biggest change?",
+            options: [
+                { text: "To be a respected scholar with academic prestige", pts: { UK:1 } },
+                { text: "To be a resident of a safe, stable country", pts: { CAN:1, NZ:1, AUS:1 } },
+                { text: "To be a technical expert with skills for the future", pts: { GER:1, MAL:1 } },
+                { text: "To be a leader with a massive global network", pts: { USA:1, UAE:1 } }
+            ]
+        },
+        {
+            q: "Moving abroad is a major milestone. How do you handle a monumental challenge?",
+            options: [
+                { text: "I research the facts and follow a structured plan", pts: { GER:1, UK:1 } },
+                { text: "I jump in head-first and look for opportunity", pts: { USA:1, UAE:1 } },
+                { text: "I stay relaxed and adapt as things change", pts: { AUS:1, MAL:1 } },
+                { text: "I look for a supportive community to join", pts: { CAN:1, NZ:1 } }
+            ]
+        },
+        {
+            q: "Your studies are the heart of this journey. Which atmosphere helps you thrive?",
+            options: [
+                { text: "A traditional setting where history is respected", pts: { UK:1 } },
+                { text: "A high-energy hub of innovation and competition", pts: { USA:1, UAE:1 } },
+                { text: "A technical, focused, and deeply precise setting", pts: { GER:1 } },
+                { text: "A diverse, global, and flexible environment", pts: { MAL:1, CAN:1, AUS:1 } }
+            ]
+        },
+        {
+            q: "At the end of your journey, what is the 'Grand Prize' you want?",
+            options: [
+                { text: "An elite degree recognized by any employer", pts: { UK:1, USA:1 } },
+                { text: "A resident visa and a secure future", pts: { CAN:1, AUS:1, NZ:1 } },
+                { text: "High-level expertise without heavy student debt", pts: { GER:1, MAL:1 } },
+                { text: "A career start in a tax-free, high-growth city", pts: { UAE:1 } }
+            ]
+        }
+    ];
+
+    const results = {
+        UK: { n: "The United Kingdom", d: "Your destiny lies in the United Kingdom! You clearly value prestige and history. Based on your love for classic culture and academic standards, the UK is your perfect match." },
+        USA: { n: "The United States", d: "You belong in the United States! You have a drive for innovation and scale. The US is the stage for students who want to be at the heart of tech and business." },
+        AUS: { n: "Australia", d: "Your destiny is Australia! You believe in balancing hard work with adventure. Australia offers world-ranking universities alongside a lifestyle of sunshine and beaches." },
+        CAN: { n: "Canada", d: "Your perfect match is Canada! Your focus on a welcoming community and a secure long-term future makes Canada your ideal destination." },
+        GER: { n: "Germany", d: "You belong in Germany! Your focus on precision and mastery makes Germany your ideal match. Perfect for high-quality education (especially STEM) at an affordable cost." },
+        UAE: { n: "The UAE", d: "Your perfect match is the UAE! You are drawn to modernity and global trade. In the UAE, you’ll be at a tax-free business hub where East meets West." },
+        MAL: { n: "Malaysia", d: "Your destiny lies in Malaysia! You are a smart strategist who values multiculturalism and affordable quality. A perfect gateway to a global career." },
+        NZ: { n: "New Zealand", d: "You belong in New Zealand! You prioritize peace and a sustainable lifestyle. NZ offers a safe environment where you can focus on studies." }
+    };
+
+    let scores = { UK:0, USA:0, AUS:0, CAN:0, GER:0, UAE:0, MAL:0, NZ:0 };
+    let currentQ = 0;
+    let finalResultName = "";
+    let studentEmail = "";
+
+    function transitionTo(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        if (screenId === 'q0') {
+            document.getElementById('screen-quiz').classList.add('active');
+            renderQuestion();
+        } else {
+            document.getElementById('screen-' + screenId).classList.add('active');
+        }
+    }
+
+    function startQuiz(event) {
+        event.preventDefault();
+        const emailInput = document.getElementById('start_email').value;
+        if (!emailInput || !emailInput.includes('@')) {
+            alert("Please enter a valid email to begin.");
+            return;
+        }
+        studentEmail = emailInput; 
+        scores = { UK:0, USA:0, AUS:0, CAN:0, GER:0, UAE:0, MAL:0, NZ:0 };
+        currentQ = 0;
+        transitionTo('q0');
+    }
+
+    function renderQuestion() {
+        const qData = questions[currentQ];
+        document.getElementById('question-text').innerText = qData.q;
+        document.getElementById('question-count').innerText = `DESTINY ANALYSIS ${currentQ + 1} / 7`;
+        document.getElementById('progress-fill').style.width = ((currentQ + 1) / 7 * 100) + '%';
+        
+        const list = document.getElementById('options-list');
+        list.innerHTML = '';
+        qData.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt.text;
+            btn.onclick = () => {
+                for (let c in opt.pts) scores[c] += opt.pts[c];
+                currentQ++;
+                if (currentQ < 7) renderQuestion();
+                else transitionTo('lead');
+            };
+            list.appendChild(btn);
+        });
+    }
+
+    function submitData(event) {
+        event.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+
+        let winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        finalResultName = results[winner].n;
+
+        const formData = {
+            name: document.getElementById('full_name').value,
+            countryCode: document.getElementById('country-code').value,
+            phoneNumber: document.getElementById('phone_number').value,
+            email: studentEmail, 
+            result: finalResultName,
+            interested: "Pending"
+        };
+
+        transitionTo('loading');
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
+        })
+        .then(() => showResult(winner))
+        .catch(error => {
+            console.error('Connection Error:', error);
+            showResult(winner);
+        });
+    }
+
+    function showResult(winner) {
+        document.getElementById('country-name').innerText = results[winner].n;
+        document.getElementById('country-desc').innerText = results[winner].d;
+        document.getElementById('country-img').src = countryImages[winner];
+        document.getElementById('info-country-name').innerText = results[winner].n;
+        transitionTo('result');
+    }
+
+    function logInterest(answer) {
+        const infoSection = document.getElementById('more-info-section');
+        if (answer === 'Yes') {
+            infoSection.innerHTML = "<p style='color: #00732f; font-weight: bold; margin: 0;'>✅ Excellent! An EdPro counselor will be in touch.</p>";
+        } else {
+            infoSection.innerHTML = "<p style='color: #555; font-weight: bold; margin: 0;'>No problem, feel free to explore your result!</p>";
+        }
+        
+        const formData = {
+            name: document.getElementById('full_name').value,
+            countryCode: document.getElementById('country-code').value,
+            phoneNumber: document.getElementById('phone_number').value,
+            email: studentEmail,
+            result: finalResultName,
+            interested: answer
+        };
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
+        });
+    }
+
+    function smartShare() {
+        const captureElement = document.getElementById('capture-area');
+        html2canvas(captureElement, { useCORS: true }).then(canvas => {
+            canvas.toBlob(blob => {
+                const file = new File([blob], "My_Destiny_Hat_Result.png", { type: "image/png" });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    navigator.share({
+                        files: [file],
+                        title: 'My Global Destiny',
+                        text: `I got ${finalResultName} on the Global Destiny Hat!`
+                    }).catch(err => console.log("Share failed", err));
+                } else {
+                    alert("On desktop? Image saved to downloads!");
+                    const link = document.createElement('a');
+                    link.download = 'My_Global_Destiny.png';
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                }
+            });
+        });
+    }
+
+    function forceDownload() {
+        const captureElement = document.getElementById('capture-area');
+        html2canvas(captureElement, { useCORS: true }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'My_Global_Destiny.png';
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
+    }
+
+    function shareX() {
+        const text = `I just found my perfect study abroad destiny: ${finalResultName}! Find yours with the EdPro Destiny Hat.`;
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    }
+
+    function shareFB() {
+        const url = `https://www.facebook.com/sharer/sharer.php?u=https://edproconsultants.com`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
