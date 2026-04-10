@@ -3,7 +3,7 @@
 An interactive, high-conversion web application developed for **EdPro Consultants**. This tool uses a "Sorting Hat" gamification logic to match prospective students with their ideal study-abroad destination while capturing high-intent lead data.
 
 ## 🚀 Live Demo
-**View the project in action:** [https://abcthe24th-dot.github.io/destiny-hat/](https://abcthe24th-dot.github.io/destiny-hat/)
+**View the project in action:** https://ahmedbilalchhapra.github.io/destiny-hat/
 
 ## 🛠️ Key Features
 * **Dynamic Sorting Logic:** A 7-question psychological assessment that calculates destination affinity across 8 global regions (UK, USA, Australia, Canada, Germany, UAE, Malaysia, and New Zealand).
