@@ -1,5 +1,9 @@
 # 🎩 Global Destiny Hat - Interactive Lead-Gen Tool
 
+👤 Developer
+Ahmed Bilal Chhapra
+Brand Ambassador | EdPro Consultants
+
 An interactive, high-conversion web application developed for **EdPro Consultants**. This tool uses a "Sorting Hat" gamification logic to match prospective students with their ideal study-abroad destination while capturing high-intent lead data.
 
 ## 🚀 Live Demo
@@ -35,6 +39,4 @@ An interactive, high-conversion web application developed for **EdPro Consultant
 │   └── ...             # [Other 6 destinations]
 └── README.md           # Project documentation
 
-👤 Developer
-Ahmed Bilal Chhapra
-Brand Ambassador | EdPro Consultants
+
