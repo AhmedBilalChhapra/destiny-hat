@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Destiny Hat | ED Pro Consultants</title>
+    <title>Global Destiny Hat | Edpro Consultants</title>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         :root {
@@ -89,7 +89,7 @@
 
 <div id="app-container">
     <div id="screen-start" class="screen active" style="text-align: center;">
-        <p class="brand-header">ED PRO CONSULTANTS</p>
+        <p class="brand-header">EDPRO CONSULTANTS</p>
         <h1>The Global Destiny Hat</h1>
         <p>Your journey is more than a destination—it’s a legacy. Find your perfect global campus in under 60 seconds.</p>
         
@@ -134,7 +134,7 @@
     <div id="screen-loading" class="screen" style="text-align: center;">
         <div class="spinner"></div>
         <h2 id="loading-status">Analyzing Traits...</h2>
-        <p>Syncing with EdPro Database...</p>
+        <p>Syncing with Edpro Database...</p>
     </div>
 
     <div id="screen-result" class="screen">
@@ -143,7 +143,7 @@
             <h1 id="country-name" style="margin-top: 5px; font-size: 40px; color: var(--primary);">...</h1>
             <img id="country-img" class="country-hero" src="" alt="Destiny Country" crossorigin="anonymous">
             <p id="country-desc" style="font-size: 18px; line-height: 1.6; color: #444;"></p>
-            <p style="margin-top:15px; font-size:12px; color:#999; text-transform:uppercase; letter-spacing:1px;">GlobalDestinyHat.com | EdPro Consultants</p>
+            <p style="margin-top:15px; font-size:12px; color:#999; text-transform:uppercase; letter-spacing:1px;">GlobalDestinyHat.com | Edpro Consultants</p>
         </div>
 
         <div id="more-info-section" class="lead-qualify-box">
@@ -352,7 +352,7 @@
     function logInterest(answer) {
         const infoSection = document.getElementById('more-info-section');
         if (answer === 'Yes') {
-            infoSection.innerHTML = "<p style='color: #00732f; font-weight: bold; margin: 0;'>✅ Excellent! An EdPro counselor will be in touch.</p>";
+            infoSection.innerHTML = "<p style='color: #00732f; font-weight: bold; margin: 0;'>✅ Excellent! An Edpro counselor will be in touch.</p>";
         } else {
             infoSection.innerHTML = "<p style='color: #555; font-weight: bold; margin: 0;'>No problem, feel free to explore your result!</p>";
         }
@@ -392,7 +392,7 @@
                     navigator.share({
                         files: [file],
                         title: 'My Global Destiny',
-                        text: `I just found my future with the EdPro Destiny Hat!`
+                        text: `I just found my future with the Edpro Destiny Hat!`
                     })
                     .then(() => { btn.innerText = originalText; })
                     .catch(err => { 
@@ -421,7 +421,7 @@
     }
 
     function shareX() {
-        const text = `I just found my perfect study abroad destiny: ${finalResultName}! Find yours with the EdPro Destiny Hat.`;
+        const text = `I just found my perfect study abroad destiny: ${finalResultName}! Find yours with the Edpro Destiny Hat.`;
         const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     }
